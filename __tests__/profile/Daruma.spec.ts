@@ -2,7 +2,7 @@ import Model from '../../src/Model'
 import InMemory from '../../src/connection/InMemory'
 import Printer, { Align, Style } from '../../src/Printer'
 import { load } from '../helper'
-import { Image } from '../../src'
+import { PrinterImage } from '../../src'
 
 describe('daruma model profile', () => {
   it('write bold text from model DR800', () => {
@@ -38,7 +38,7 @@ describe('daruma model profile', () => {
   it('draw picture from buffer from model DR800', () => {
     const connection = new InMemory()
     const printer = new Printer(new Model('DR800'), connection)
-    const image = new Image(load('sample.png'))
+    const image = new PrinterImage(load('sample.png'))
     printer.alignment = Align.Center
     printer.draw(image)
     printer.alignment = Align.Left

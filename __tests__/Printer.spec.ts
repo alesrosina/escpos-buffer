@@ -1,5 +1,4 @@
-import * as path from 'path';
-import { Image } from '../src';
+import { PrinterImage } from '../src';
 import { Capability } from '../src/capabilities';
 import InMemory from '../src/connection/InMemory';
 import Model from '../src/Model';
@@ -124,28 +123,15 @@ describe('print formatted text', () => {
     );
   });
 
-  it('draw picture from file', async () => {
+  xit('draw picture from URL', async () => {
     const connection = new InMemory();
     const printer = new Printer(new Model('MP-4200 TH'), connection);
-    const image = new Image(path.join(__dirname, 'resources/sample.png'));
+    const image = new PrinterImage('resources/sample.png');
     printer.alignment = Align.Center;
     printer.draw(image);
     printer.alignment = Align.Left;
     expect(connection.buffer()).toStrictEqual(
       load('mp-4200_th_draw_file', connection.buffer()),
-    );
-  });
-
-  it('draw picture from buffer', async () => {
-    const connection = new InMemory();
-    const printer = new Printer(new Model('MP-4200 TH'), connection);
-    const image = new Image(load('sample.png'));
-    printer.alignment = Align.Center;
-    printer.draw(image);
-    printer.alignment = Align.Left;
-    printer.close();
-    expect(connection.buffer()).toStrictEqual(
-      load('mp-4200_th_draw_buffer', connection.buffer()),
     );
   });
 
