@@ -21,7 +21,7 @@ export default class PrinterImage {
     }
   }
 
-  loadImage(filename: string, filter: Filter): void {
+  private loadImage(filename: string, filter: Filter): void {
     const canvas = document.createElement('canvas');
     const img = new Image();
     img.src = filename;
@@ -39,7 +39,7 @@ export default class PrinterImage {
     }
   }
 
-  loadImageData(data: Buffer, filter: Filter): void {
+  private loadImageData(data: Buffer, filter: Filter): void {
     const png = PNG.sync.read(data);
     const image = filter.process(png);
     this.readImage(image);
