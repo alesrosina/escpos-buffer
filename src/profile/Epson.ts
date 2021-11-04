@@ -87,6 +87,8 @@ export default class Epson extends Profile {
         this.connection.write(Buffer.from('\x1B4', 'ascii'));
       } else if (Style.Underline == style) {
         this.connection.write(Buffer.from('\x1B-1', 'ascii'));
+      } else if (Style.Inverted == style) {
+        this.connection.write(Buffer.from('\x1d\x42\x01', 'ascii'));
       }
     } else {
       // disable styles
@@ -98,6 +100,8 @@ export default class Epson extends Profile {
         this.connection.write(Buffer.from('\x1BE0', 'ascii'));
       } else if (Style.Condensed == style) {
         this.connection.write(Buffer.from('\x12', 'ascii'));
+      } else if (Style.Inverted == style) {
+        this.connection.write(Buffer.from('\x1d\x42\x00', 'ascii'));
       }
     }
   }

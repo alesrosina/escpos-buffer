@@ -60,6 +60,7 @@ export abstract class Profile {
       Style.Bold,
       Style.Italic,
       Style.Underline,
+      Style.Inverted
     ];
     properties = enable ? properties : properties.reverse();
     properties.forEach((style: Style) => {
@@ -115,6 +116,23 @@ export abstract class Profile {
     if (align !== Align.Left) {
       this.alignment = Align.Left;
     }
+  }
+
+  writelnJustify(textLeft: string, textRight: string, styles: number) {
+    let combinedText = '';
+
+    if((textLeft.length + textRight.length) >= this.columns) {
+      // TODO strip left text
+    } else {
+      const whitespaces = ' '.repeat(this.columns - textLeft.length - textRight.length);
+      combinedText = `${textLeft}${whitespaces}${textRight}`;
+    }
+
+    this.writeln(combinedText, styles, Align.Left);
+  }
+
+  drawLine() {
+    this.writeln('-'.repeat(this.columns), 0, Align.Left);
   }
 
   protected get bitmapCmd(): string {

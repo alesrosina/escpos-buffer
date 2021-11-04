@@ -16,6 +16,7 @@ export enum Style {
   Condensed = 8,
   DoubleWidth = 16,
   DoubleHeight = 32,
+  Inverted = 64
 }
 
 export enum Cut {
@@ -81,6 +82,14 @@ export default class Printer {
 
   writeln(text: string = '', styles: number = 0, align: Align = Align.Left) {
     this.model.profile.writeln(text, styles, align);
+  }
+
+  writelnJustify(textLeft: string, textRight: string, styles: number = 0) {
+    this.model.profile.writelnJustify(textLeft, textRight, styles);
+  }
+
+  drawLine() {
+    this.model.profile.drawLine();
   }
 
   withStyle(styleConf: StyleConf, cb: Function) {
