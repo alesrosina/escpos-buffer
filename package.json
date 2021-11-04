@@ -1,6 +1,6 @@
 {
   "name": "escpos-buffer-web",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Library to generate buffer for thermal printers.",
   "author": "GrandChef Team <desenvolvimento@grandchef.com.br>",
   "license": "MIT",
