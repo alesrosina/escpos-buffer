@@ -3,7 +3,7 @@ import { Font, Capability, CodePage } from '../capabilities';
 import { Align, Drawer, Style, Cut } from '../Printer';
 import * as iconv from 'iconv-lite';
 import * as QRCode from 'qrcode';
-import Image from '../graphics/Image';
+import PrinterImage from '../graphics/PrinterImage';
 import { Threshold } from '../graphics/filter';
 
 export type StyleConf = {
@@ -139,7 +139,7 @@ export abstract class Profile {
     return '\x1B*!';
   }
 
-  draw(image: Image) {
+  draw(image: PrinterImage) {
     const low = String.fromCharCode(image.width & 0xff);
     const high = String.fromCharCode((image.width >> 8) & 0xff);
     this.connection.write(Buffer.from('\x1B3\x10', 'ascii'));
@@ -154,7 +154,7 @@ export abstract class Profile {
 
   protected async drawQrcode(data: string, size: number): Promise<void> {
     const buffer = await QRCode.toBuffer(data, { scale: size });
-    const image = new Image(buffer, new Threshold());
+    const image = new PrinterImage(buffer, new Threshold());
     this.draw(image);
   }
 

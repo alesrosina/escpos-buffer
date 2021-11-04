@@ -1,6 +1,6 @@
 import Model from './Model';
 import { Connection } from './connection';
-import Image from './graphics/Image';
+import PrinterImage from './graphics/PrinterImage';
 import { StyleConf } from './profile';
 
 export enum Align {
@@ -64,7 +64,7 @@ export default class Printer {
     this.model.profile.drawer(number, on_time, off_time);
   }
 
-  draw(image: Image) {
+  draw(image: PrinterImage) {
     this.model.profile.draw(image);
   }
 

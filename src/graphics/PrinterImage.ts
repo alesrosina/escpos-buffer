@@ -1,8 +1,8 @@
 import { Filter, FloydSteinberg } from './filter';
-import * as fs from 'fs';
-import { PNG } from 'pngjs';
+import { PNG } from 'pngjs/browser';
+import * as blobToBuffer from 'blob-to-buffer';
 
-export default class Image {
+export default class PrinterImage {
   data: Buffer;
   lines: number;
   width: number;
@@ -22,9 +22,21 @@ export default class Image {
   }
 
   loadImage(filename: string, filter: Filter): void {
-    // tslint:disable-next-line: non-literal-fs-path
-    const data = fs.readFileSync(filename);
-    this.loadImageData(data, filter);
+    const canvas = document.createElement('canvas');
+    const img = new Image();
+    img.src = filename;
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const context = canvas.getContext('2d');
+      context.drawImage(img, 0, 0, img.width, img.height);
+      canvas.toBlob(async blob => {
+        blobToBuffer(blob, (err, buffer) => {
+          if (err) throw err;
+          this.loadImageData(buffer, filter);
+        });
+      }, 'image/png');
+    }
   }
 
   loadImageData(data: Buffer, filter: Filter): void {
