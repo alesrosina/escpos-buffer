@@ -4,6 +4,9 @@
 [![Node.js version][nodejs-badge]][nodejs]
 [![MIT][license-badge]][LICENSE]
 
+> This is fork of (escpos-buffer)[https://github.com/grandchef/escpos-buffer]. Point of this for is
+to remove dependency on node-js's `fs` lib, so it can be used also in a browser.
+
 # ESC/POS Printer Library
 
 Library to generate buffer for thermal printers.
@@ -13,11 +16,11 @@ Library to generate buffer for thermal printers.
 Run command bellow on your project folder
 
 ```sh
-yarn add escpos-buffer
+yarn add escpos-buffer-web
 ```
 or
 ```sh
-npm install escpos-buffer
+npm install escpos-buffer-web
 ```
 
 ## Basic example
@@ -28,10 +31,13 @@ const model = new Model('MP-4200 TH')
 const connection = new InMemory()
 const printer = new Printer(model, connection)
 printer.columns = 56
+printer.writeln('                    Some fancy title                    ', Style.DoubleHeight | Style.Inverted)
 printer.write('Simple Text *** ')
 printer.writeln('Bold Text -> complete line text.[]123456', Style.Bold)
 printer.writeln('Double height', Style.DoubleHeight | Style.Bold, Align.Center)
 printer.writeln('Áçênts R$ 5,00', Style.DoubleWidth | Style.DoubleWidth, Align.Center)
+printer.writelnJustify('1x Pizza', '$ 20,00', Style.Bold);
+printer.drawLine();
 printer.withStyle({
   width: 4,
   height: 6,
@@ -98,5 +104,5 @@ Licensed under the MIT. See the [LICENSE](https://github.com/grandchef/escpos-bu
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license]: https://github.com/grandchef/escpos-buffer/blob/master/LICENSE
 
-[version-badge]: https://img.shields.io/npm/v/escpos-buffer?label=escpos-buffer
-[npm-link]: https://www.npmjs.com/package/escpos-buffer
+[version-badge]: https://img.shields.io/npm/v/escpos-buffer-web?label=escpos-buffer-web
+[npm-link]: https://www.npmjs.com/package/escpos-buffer-web
