@@ -122,7 +122,8 @@ export abstract class Profile {
     let combinedText = '';
 
     if((textLeft.length + textRight.length) >= this.columns) {
-      // TODO strip left text
+      // if left text is too long, we strip it
+      combinedText = `${textLeft.slice(0, this.columns - textRight.length - 2)}* ${textRight}`;
     } else {
       const whitespaces = ' '.repeat(this.columns - textLeft.length - textRight.length);
       combinedText = `${textLeft}${whitespaces}${textRight}`;
